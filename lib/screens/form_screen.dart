@@ -30,6 +30,8 @@ class _FormScreenState extends State<FormScreen> {
             border: Border.all(width: 3)
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -85,7 +87,14 @@ class _FormScreenState extends State<FormScreen> {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network(imageController.text, fit: BoxFit.cover),
+                  child: Image.network(
+                    //https://cdn.ome.lt/qnK3hf0_08-cjuoRDb98LkEg3Do=/1200x630/smart/extras/conteudos/darth-vader-fortnite.jpg
+                    imageController.text,
+                    fit: BoxFit.cover,
+                    errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace){
+                        return Image.asset('assets/images/nophoto.jpg', fit: BoxFit.cover,);
+                    },
+                  ),
 
                 ),
               ),
