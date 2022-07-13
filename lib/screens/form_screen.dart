@@ -1,4 +1,5 @@
 
+import 'package:first_project_flutter_3_0/screens/Initial_screen.dart';
 import 'package:flutter/material.dart';
 
 class FormScreen extends StatefulWidget {
@@ -42,7 +43,7 @@ class _FormScreenState extends State<FormScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       validator: (String? value){
-                        if( value == null && value == "" ){
+                        if( value == null || value == "" ){
                           return 'Insira um nome';
                         }else{
                           return null;
@@ -132,6 +133,8 @@ class _FormScreenState extends State<FormScreen> {
                       print( int.parse(difficultyController.text));
                       print(imageController.text);
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Salvando nova tarefa...'),),);
+                      Navigator.pop(context);
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => InitialScreen())); //adiciona a tela na pilha
                     }
                   }, child: Text('Adicionar'))
                 ],
