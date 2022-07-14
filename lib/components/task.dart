@@ -12,7 +12,11 @@ class Task extends StatefulWidget {
   final String photo;
   final int dificuldade;
 
-  const Task(this.dificuldade, this.photo, this.taskName, {Key? key}) : super(key: key);
+  Task(this.dificuldade, this.photo, this.taskName, {Key? key}) : super(key: key);
+
+  int nivel = 0;
+
+  int colorStart = 5;
 
   @override
   State<Task> createState() => _TaskState();
@@ -20,14 +24,9 @@ class Task extends StatefulWidget {
 
 class _TaskState extends State<Task> {
 
-  int nivel = 0;
-
-  int colorStart = 5;
-
   bool assetOrNetwork(){
     return widget.photo.contains("http") ?  false :  true;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +38,7 @@ class _TaskState extends State<Task> {
             // color: Colors.blue,// nao pode ser utilizado junto com o decoration (ver documentacao)
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(10)),
-                color: Colors.primaries[colorStart],
+                color: Colors.primaries[widget.colorStart],
             ),
             height: 140,
           ),
@@ -93,10 +92,10 @@ class _TaskState extends State<Task> {
                       child: ElevatedButton(
                         onPressed: () {
                           setState((){
-                            nivel++;
-                            if(((nivel/widget.dificuldade)/10) >= 1 ){
-                              colorStart = Random().nextInt(Colors.primaries.length);
-                              nivel = 0;
+                            widget.nivel++;
+                            if(((widget.nivel/widget.dificuldade)/10) >= 1 ){
+                              widget.colorStart = Random().nextInt(Colors.primaries.length);
+                              widget.nivel = 0;
                             }
                           });
                         },
@@ -122,13 +121,13 @@ class _TaskState extends State<Task> {
                       width: 200,
                       child: LinearProgressIndicator(
                         color: Colors.white,
-                        value:widget.dificuldade > 0 ? (nivel/widget.dificuldade)/10 : 1, //estrategia para subir a barra
+                        value:widget.dificuldade > 0 ? (widget.nivel/widget.dificuldade)/10 : 1, //estrategia para subir a barra
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text('Nivel: $nivel', style: TextStyle(color: Colors.white, fontSize: 16 ),),
+                    child: Text('Nivel: ${widget.nivel}', style: TextStyle(color: Colors.white, fontSize: 16 ),),
                   ),
                 ],
               ),
