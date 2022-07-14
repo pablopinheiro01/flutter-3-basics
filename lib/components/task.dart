@@ -24,6 +24,10 @@ class _TaskState extends State<Task> {
 
   int colorStart = 5;
 
+  bool assetOrNetwork(){
+    return widget.photo.contains("http") ?  false :  true;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +61,13 @@ class _TaskState extends State<Task> {
                       ),
                       child: ClipRRect(
                         borderRadius: const BorderRadius.only(topLeft: Radius.circular(10)),
-                        child: Image.asset(
+                        child: assetOrNetwork() ? Image.asset(
                             widget.photo.toString(),
                             fit:BoxFit.cover
-                        ),
+                        ) : Image.network(
+                          widget.photo.toString(),
+                          fit: BoxFit.cover,
+                        )
                       ),
                     ),
                     Column(
