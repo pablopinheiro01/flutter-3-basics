@@ -22,6 +22,22 @@ class _FormScreenState extends State<FormScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
+  bool valueValidator(String? value) {
+    if (value != null && value.isEmpty) {
+      return true;
+    }
+    return false;
+  }
+
+  bool difficultyValidator(String? value){
+      if( value != null && value != ""){
+        if(int.parse(value) > 5 || int.parse(value) < 1){
+          return true;
+        }
+      }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -48,11 +64,11 @@ class _FormScreenState extends State<FormScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       validator: (String? value){
-                        if( value == null || value == "" ){
+                        if(valueValidator(value) ){
                           return 'Insira um nome';
-                        }else{
-                          return null;
                         }
+                          return null;
+
                       },
                       controller: nameController,
                       textAlign: TextAlign.center,
@@ -68,11 +84,10 @@ class _FormScreenState extends State<FormScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       validator: (String? value){
-                        if( value!.isEmpty || int.parse(value) > 5 || int.parse(value) < 1){
+                        if(!difficultyValidator(value)){
                           return 'Insira uma dificuldade entre 1 e 5';
-                        }else{
-                          return null;
                         }
+                        return null;
                       },
                       keyboardType: TextInputType.number,
                       controller: difficultyController,
@@ -89,11 +104,10 @@ class _FormScreenState extends State<FormScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       validator: (value){
-                        if(value!.isEmpty){
+                        if(valueValidator(value)){
                           return 'Insira uma url pra imagem';
-                        }else{
-                          return null;
                         }
+                          return null;
                       },
                       keyboardType: TextInputType.url,
                       onChanged: (text){
