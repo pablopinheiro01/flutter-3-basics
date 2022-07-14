@@ -1,3 +1,4 @@
+import 'package:first_project_flutter_3_0/data/task_inherited.dart';
 import 'package:first_project_flutter_3_0/screens/form_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -23,20 +24,12 @@ class _InitialScreenState extends State<InitialScreen> {
         leading: Container(),//ocupa espaço ao lado do texto (facilidade do Material Design)
         title: const Text('Tarefas'),
       ),
-      body: ListView(scrollDirection: Axis.vertical, children: const [
-        Task(1,'assets/images/bike.webp','Aprender Dart',),
-        Task(0,"assets/images/dash.png",'Musculamento'),
-        Task(0,"assets/images/livro.jpg",'Musculamento'),
-        Task(5,"assets/images/meditar.jpeg",
-          'Correr 5km por dia para competicao',),
-        Task(3,"assets/images/livro.jpg",'Grego'),
-        Task(3,"assets/images/livro.jpg",'Hebraico'),
-        Task(3,"assets/images/livro.jpg",'Alemao'),
-        Task(3,"assets/images/livro.jpg",'Ingles'),
-        SizedBox(height: 80,)
-      ]),
+      body: ListView(scrollDirection: Axis.vertical,
+          children: TaskInherited.of(context).taskList,
+        padding: EdgeInsets.only(top: 9, bottom: 70),
+      ),
       floatingActionButton: FloatingActionButton(onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => FormScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (materialContext) => FormScreen(taskContext: context,)));
         //removido a opacidade do botao
         // setState((){
         //   opacidade = !opacidade;
