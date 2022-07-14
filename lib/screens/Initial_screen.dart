@@ -28,7 +28,7 @@ class _InitialScreenState extends State<InitialScreen> {
         Task(0,"assets/images/dash.png",'Musculamento'),
         Task(0,"assets/images/livro.jpg",'Musculamento'),
         Task(5,"assets/images/meditar.jpeg",
-          'Chorar mas eu choro sorrindo ganhand o pouco e ganhando pouco assim vmaos nos sendo assim e legal olhar pro mudno todopara mano',),
+          'Correr 5km por dia para competicao',),
         Task(3,"assets/images/livro.jpg",'Grego'),
         Task(3,"assets/images/livro.jpg",'Hebraico'),
         Task(3,"assets/images/livro.jpg",'Alemao'),
