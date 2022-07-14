@@ -1,9 +1,14 @@
 
+import 'package:first_project_flutter_3_0/data/task_inherited.dart';
 import 'package:first_project_flutter_3_0/screens/Initial_screen.dart';
 import 'package:flutter/material.dart';
 
 class FormScreen extends StatefulWidget {
-  const FormScreen({Key? key}) : super(key: key);
+
+ final BuildContext taskContext;
+
+ const FormScreen({required this.taskContext, Key? key,}) : super(key: key);
+
 
   @override
   State<FormScreen> createState() => _FormScreenState();
@@ -129,10 +134,12 @@ class _FormScreenState extends State<FormScreen> {
                   ),
                   ElevatedButton(onPressed: (){
                     if(_formKey.currentState!.validate()){//valida o estado do formulario
-                      print(nameController.text);
-                      print( int.parse(difficultyController.text));
-                      print(imageController.text);
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Salvando nova tarefa...'),),);
+                      // print(nameController.text);
+                      // print( int.parse(difficultyController.text));
+                      // print(imageController.text);
+                      TaskInherited.of(widget.taskContext)
+                          .newTask(nameController.text, imageController.text,int.parse(difficultyController.text));
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Criando nova tarefa...'),),);
                       Navigator.pop(context);
                       // Navigator.push(context, MaterialPageRoute(builder: (context) => InitialScreen())); //adiciona a tela na pilha
                     }
