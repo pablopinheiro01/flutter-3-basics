@@ -1,5 +1,4 @@
 
-import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -18,6 +17,10 @@ class Task extends StatefulWidget {
 
   int colorStart = 5;
 
+  double levelCalculate = 0.0;
+
+  bool update = false;
+
   @override
   State<Task> createState() => _TaskState();
 }
@@ -26,6 +29,19 @@ class _TaskState extends State<Task> {
 
   bool assetOrNetwork(){
     return widget.photo.contains("http") ?  false :  true;
+  }
+
+  double calcValueLinearProgress(){
+    widget.levelCalculate = widget.nivel > 0 && widget.dificuldade > 0 ? (widget.nivel/widget.dificuldade)/10 : 0.0;
+    return widget.dificuldade > 0 ? widget.levelCalculate : 1;
+  }
+
+  void newColorUp(){
+    widget.nivel++;
+    if(((widget.nivel/widget.dificuldade)/10) > 1 ){
+      widget.colorStart = Random().nextInt(Colors.primaries.length);
+      widget.nivel = 0;
+    }
   }
 
   @override
@@ -92,11 +108,7 @@ class _TaskState extends State<Task> {
                       child: ElevatedButton(
                         onPressed: () {
                           setState((){
-                            widget.nivel++;
-                            if(((widget.nivel/widget.dificuldade)/10) >= 1 ){
-                              widget.colorStart = Random().nextInt(Colors.primaries.length);
-                              widget.nivel = 0;
-                            }
+                            newColorUp();
                           });
                         },
                         child: Column(
@@ -121,7 +133,7 @@ class _TaskState extends State<Task> {
                       width: 200,
                       child: LinearProgressIndicator(
                         color: Colors.white,
-                        value:widget.dificuldade > 0 ? (widget.nivel/widget.dificuldade)/10 : 1, //estrategia para subir a barra
+                        value: calcValueLinearProgress(),//estrategia para subir a barra
                       ),
                     ),
                   ),

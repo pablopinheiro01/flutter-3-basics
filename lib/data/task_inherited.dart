@@ -19,8 +19,49 @@ class TaskInherited extends InheritedWidget {
     Task(3,"assets/images/livro.jpg",'Ingles'),
   ];
 
+  double barProgressValue = 0.0;
+  double somaDeTodosOsNiveis = 0.0;
+
   void newTask(String name, String photo, int difficult){
     taskList.add(Task(difficult, photo, name));
+  }
+
+  double calcTotalDifficulty(){
+    double value = 0.0;
+    for(Task t in taskList){
+      value += t.nivel;
+    }
+    print("valor total da dificuldade: ${value}");
+    return value;
+  }
+
+  double calcTotalStars(){
+    double value = 0.0;
+    for(Task t in taskList){
+      value += t.dificuldade;
+    }
+    print("valor total das estrelas: ${value}");
+    return value;
+  }
+
+  double calcTotalLevels(){
+    double value = 0.0;
+    for(Task t in taskList){
+      value += t.levelCalculate;
+    }
+    print("valor total dos levels: ${value}");
+    return value;
+  }
+
+  void valueOfLevel(){
+
+    barProgressValue = calcTotalDifficulty() > 0 ? (calcTotalLevels()/calcTotalStars()) : 0;
+
+    somaDeTodosOsNiveis = (calcTotalLevels()*calcTotalStars()).roundToDouble();
+
+    print("calculo feito: ${(calcTotalLevels()/calcTotalStars())}");
+
+
   }
 
   static TaskInherited of(BuildContext context) {
